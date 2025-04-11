@@ -18,10 +18,10 @@ test:
 	poetry run pytest
 
 format:
-	poetry run black src/ tests/
+	poetry run black src/ backend/tests/
 
 lint:
-	poetry run ruff check src/ tests/ --fix
+	poetry run ruff check src/ backend/tests/ --fix
 
 pre-commit:
 	poetry run pre-commit run --all-files
