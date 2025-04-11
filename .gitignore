@@ -3,6 +3,8 @@ __pycache__/
 *.py[cod]
 *.egg
 *.egg-info/
+
+# General build artifacts
 dist/
 build/
 
@@ -20,7 +22,16 @@ build/
 
 # Poetry
 poetry.lock
+*.egg-info/
+.cache/
+htmlcov/
 
 # pytest-cov
 .coverage
-htmlcov/
+
+# Node
+node_modules/
+frontend/node_modules
+backend/node_modules
+dist/
+build/
