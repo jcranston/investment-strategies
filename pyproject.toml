@@ -1,25 +1,31 @@
-[project]
+[tool.poetry]
 name = "investment-strategies"
 version = "0.1.0"
-description = ""
-authors = [
-    {name = "Your Name",email = "you@example.com"}
-]
+description = "A full-stack investment strategy simulator using FastAPI and React"
+authors = ["James Cranston <jcranston92@gmail.com>"]
 readme = "README.md"
-requires-python = ">=3.10"
-dependencies = [
-    "yfinance (>=0.2.55,<0.3.0)",
-    "pandas (>=2.2.3,<3.0.0)",
-    "numpy (>=2.2.4,<3.0.0)",
-    "lxml (>=5.3.2,<6.0.0)",
-    "matplotlib (>=3.10.1,<4.0.0)",
-    "fastapi (>=0.115.12,<0.116.0)",
-    "pydantic (>=2.11.3,<3.0.0)",
-    "uvicorn (>=0.34.0,<0.35.0)"
-]
+packages = []
+license = "MIT"
+package-mode = false
 
-[tool.poetry]
-packages = [{include = "investment_strategies", from = "src"}]
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.115.0"
+uvicorn = "^0.34.0"
+pandas = "^2.2.0"
+numpy = "^2.2.0"
+lxml = "^5.3.0"
+matplotlib = "^3.10.0"
+pydantic = "^2.11.0"
+yfinance = "^0.2.0"
+httpx = "^0.28.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.5"
+pytest-cov = "^6.1.1"
+black = "^25.1.0"
+ruff = "^0.11.5"
+pre-commit = "^4.2.0"
 
 [tool.ruff]
 line-length = 100
@@ -28,18 +34,6 @@ fix = true
 
 [tool.ruff.lint]
 select = ["E", "F", "I"]
-
-[tool.poetry.group.dev.dependencies]
-pytest = "^8.3.5"
-pytest-cov = "^6.1.1"
-black = "^25.1.0"
-ruff = "^0.11.5"
-pre-commit = "^4.2.0"
-httpx = "^0.28.1"
-
-[tool.pytest.ini_options]
-pythonpath = ["src"]
-addopts = "--cov=src --cov-report=term-missing"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
