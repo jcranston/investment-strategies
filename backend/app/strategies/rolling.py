@@ -2,7 +2,9 @@ import pandas as pd
 import yfinance as yf
 
 
-def simulate_rolling(start_date: str, end_date: str, tickers: list) -> dict:
+def simulate_rolling(
+    start_date: str, end_date: str, tickers: list, initial_value: float
+) -> dict:
     all_data = yf.download(
         tickers, start=start_date, end=end_date, group_by="ticker", threads=True
     )
@@ -45,8 +47,7 @@ def simulate_rolling(start_date: str, end_date: str, tickers: list) -> dict:
     signal_df = pd.DataFrame(rolling_signals)
     signal_df = signal_df.sort_values("Date")
 
-    initial_capital = 1_000_000
-    portfolio_value = initial_capital
+    portfolio_value = initial_value
     portfolio_over_time = []
 
     for date, group in signal_df.groupby("Date"):
