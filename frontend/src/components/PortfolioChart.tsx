@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   Chart as ChartJS,
   LineElement,
@@ -27,7 +26,8 @@ export default function PortfolioChart({ data }: PortfolioChartProps) {
       {
         label: 'Portfolio Value ($)',
         data: values,
-        fill: false,
+        fill: true,
+        backgroundColor: 'rgba(37, 99, 235, 0.2)', // light blue shading
         borderColor: 'rgb(37, 99, 235)', // Tailwind blue-600
         tension: 0.1,
       },
@@ -41,11 +41,20 @@ export default function PortfolioChart({ data }: PortfolioChartProps) {
       legend: { display: true },
     },
     scales: {
+      x: {
+        ticks: {
+          maxRotation: 45,
+          autoSkip: true,
+          maxTicksLimit: 10,
+        },
+      },
       y: {
         beginAtZero: false,
         ticks: {
-          callback: function (value: number) {
-            return '$' + value.toLocaleString()
+          callback: (tickValue: string | number) => {
+            return typeof tickValue === "number"
+              ? `$${tickValue.toLocaleString()}`
+              : `${tickValue}`;
           },
         },
       },

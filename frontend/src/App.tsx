@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import PortfolioChart from './components/PortfolioChart'
 
-
 function App() {
   const [strategy, setStrategy] = useState('daily')
   const [startDate, setStartDate] = useState('2024-01-01')
   const [endDate, setEndDate] = useState('2024-12-31')
   const [tickers, setTickers] = useState('AAPL,MSFT')
+  const [initialValue, setInitialValue] = useState(1000000)
   const [results, setResults] = useState<any>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -17,7 +17,8 @@ function App() {
     setError(null)
     setResults(null)
     try {
-      const res = await fetch('http://localhost:8000/simulate', {
+      const apiBase = import.meta.env.VITE_API_BASE
+      const res = await fetch(`${apiBase}/simulate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -25,6 +26,7 @@ function App() {
           start_date: startDate,
           end_date: endDate,
           tickers: tickers.split(',').map(t => t.trim()),
+          initial_value: initialValue,
         }),
       })
       if (!res.ok) {
@@ -85,6 +87,15 @@ function App() {
                   className="w-full px-4 py-2 border border-slate-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                   value={endDate}
                   onChange={e => setEndDate(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold text-slate-700 mb-1">Initial Value ($)</label>
+                <input
+                  type="number"
+                  className="w-full px-4 py-2 border border-slate-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={initialValue}
+                  onChange={e => setInitialValue(Number(e.target.value))}
                 />
               </div>
             </div>
